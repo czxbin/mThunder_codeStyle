@@ -1,0 +1,557 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>javascript 代码编码约定 - 迅雷web工程师协会</title>
+<style>
+html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body{
+  color:#444;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman',
+              "Hiragino Sans GB", "STXihei", "微软雅黑", serif;
+  font-size:12px;
+  line-height:1.5em;
+  background:#fefefe;
+  width: 45em;
+  margin: 10px auto;
+  padding: 1em;
+  outline: 1300px solid #FAFAFA;
+}
+
+a{ color: #0645ad; text-decoration:none;}
+a:visited{ color: #0b0080; }
+a:hover{ color: #06e; }
+a:active{ color:#faa700; }
+a:focus{ outline: thin dotted; }
+a:hover, a:active{ outline: 0; }
+
+span.backtick {
+  border:1px solid #EAEAEA;
+  border-radius:3px;
+  background:#F8F8F8;
+  padding:0 3px 0 3px;
+}
+
+::-moz-selection{background:rgba(255,255,0,0.3);color:#000}
+::selection{background:rgba(255,255,0,0.3);color:#000}
+
+a::-moz-selection{background:rgba(255,255,0,0.3);color:#0645ad}
+a::selection{background:rgba(255,255,0,0.3);color:#0645ad}
+
+p{
+margin:1em 0;
+}
+
+img{
+max-width:100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+font-weight:normal;
+color:#111;
+line-height:1em;
+}
+h4,h5,h6{ font-weight: bold; }
+h1{ font-size:2.5em; }
+h2{ font-size:2em; border-bottom:1px solid silver; padding-bottom: 5px; }
+h3{ font-size:1.5em; }
+h4{ font-size:1.2em; }
+h5{ font-size:1em; }
+h6{ font-size:0.9em; }
+
+blockquote{
+color:#666666;
+margin:0;
+padding-left: 3em;
+border-left: 0.5em #EEE solid;
+}
+hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa; margin: 1em 0; padding: 0; }
+
+
+pre , code, kbd, samp { 
+  color: #000; 
+  font-family: monospace; 
+  font-size: 0.88em; 
+  border-radius:3px;
+  background-color: #F8F8F8;
+  border: 1px solid #CCC; 
+}
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px 12px;}
+pre code { border: 0px !important; padding: 0;}
+code { padding: 0 3px 0 3px; }
+
+b, strong { font-weight: bold; }
+
+dfn { font-style: italic; }
+
+ins { background: #ff9; color: #000; text-decoration: none; }
+
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
+li p:last-child { margin:0 }
+dd { margin: 0 0 0 2em; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+td { vertical-align: top; }
+
+@media only screen and (min-width: 480px) {
+body{font-size:14px;}
+}
+
+@media only screen and (min-width: 768px) {
+body{font-size:16px;}
+}
+
+@media print {
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{font-size:12pt; max-width:100%; outline:none;}
+  a, a:visited { text-decoration: underline; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+pre code {
+  display: block; padding: 0.5em;
+  color: #333;
+  background: #f8f8ff
+}
+
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
+  font-style: italic
+}
+
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .nginx .title,
+pre .subst,
+pre .request,
+pre .status {
+  color: #333;
+  font-weight: bold
+}
+
+pre .number,
+pre .hexcolor,
+pre .ruby .constant {
+  color: #099;
+}
+
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #d14
+}
+
+pre .title,
+pre .id {
+  color: #900;
+  font-weight: bold
+}
+
+pre .javascript .title,
+pre .lisp .title,
+pre .clojure .title,
+pre .subst {
+  font-weight: normal
+}
+
+pre .class .title,
+pre .haskell .type,
+pre .vhdl .literal,
+pre .tex .command {
+  color: #458;
+  font-weight: bold
+}
+
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+pre .attribute,
+pre .variable,
+pre .lisp .body {
+  color: #008080
+}
+
+pre .regexp {
+  color: #009926
+}
+
+pre .class {
+  color: #458;
+  font-weight: bold
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .lisp .keyword,
+pre .tex .special,
+pre .prompt {
+  color: #990073
+}
+
+pre .built_in,
+pre .lisp .title,
+pre .clojure .built_in {
+  color: #0086b3
+}
+
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold
+}
+
+pre .deletion {
+  background: #fdd
+}
+
+pre .addition {
+  background: #dfd
+}
+
+pre .diff .change {
+  background: #0086b3
+}
+
+pre .chunk {
+  color: #aaa
+}
+
+</style>
+</head>
+<body>
+	<h2>javascript 代码编码约定：</h2>
+  <table>
+<tbody><tr>
+<th>修订版本</th>
+<th>制定作者</th>
+<th>审核</th>
+<th>确认</th>
+<th>修改时间</th>
+</tr>
+<tr>
+<td>V1.0</td>
+<td>无线事业部 吴晓彬 <a href="mailto:wuxiaobin@xunlei.com">wuxiaobin@xunlei.com</a>
+</td>
+<td>迅雷web工程师协会</td>
+<td>迅雷基础研发中心</td>
+<td>2013-07-15</td>
+</tr>
+</tbody></table>
+<ul>
+<li><h6>使用严格模式</h6>
+<p>  写 JS 代码的时候，都使用严格模式，严格模式声明于函数开头，更多内容，可阅读 <a href="http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html">Javascript 严格模式详解</a></p>
+<pre><code class="language-js">  <span class="comment">// 必须用引号括起来，在不支持严格模式的浏览器下才不会报错</span>
+  <span class="string">'use strict'</span>;
+
+  <span class="comment">// 对于 js 文件，更好的做法是外包一个立即执行函数</span>
+  ;(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+      <span class="string">'use strict'</span>;
+      <span class="comment">//some code </span>
+  )();</code></pre>
+</li>
+<li><h6>var 关键字：</h6>
+<p>  声明变量的时候都应当使用 <code>var</code> 关键字  </p>
+<pre><code class="language-js">  <span class="keyword">var</span> a = <span class="number">1</span>,
+      b,
+      c;</code></pre>
+</li>
+<li><h6>命名：</h6>
+<table>
+     <tr>
+    <td>结构</td>
+    <td>规则</td>
+    <td>例如</td>
+     </tr>
+     <tr>
+    <td>类</td>
+    <td>以大写字母开始的驼峰式</td>
+    <td>ClassNameLikeThis</td>
+     </tr>
+     <tr>
+    <td>函数</td>
+    <td>以小写字母开始的驼峰式</td>
+    <td>functionNameLikeThis</td>
+     </tr>
+     <tr>
+    <td>变量</td>
+    <td>以小写字母开始的驼峰式</td>
+    <td>nameLikeThis</td>
+     </tr>
+     <tr>
+    <td>常量</td>
+    <td>全大写，单词间用_拼接</td>
+    <td>NAME_LIKE_THIS</td>
+     </tr>
+     <tr>
+    <td>文件名</td>
+    <td>全小写，单词间可用_拼接</td>
+    <td>filename_like_this</td>
+     </tr>
+  </table>
+</p>
+<ul>
+<li>命名必须使用有意义的英语单词或单词缩写，禁止使用拼音(与业务相关的命名除外）</li>
+<li>关键词、保留词不能作为变量名<ul>
+<li>关键词<blockquote>
+<p>break, case, catch, continue, default, delete, do, else, finally, for, function, if, in, instanceof, new, return, switch, this, throw, try, typeof, var, void, while, with</p>
+</blockquote>
+</li>
+<li>保留词<blockquote>
+<p>abstract, boolean, byte, char, class, const, debugger, double, enum, export, extends, final, float, goto, implements, import, int, interface, long, native, package, private, protected, public, short, static, super, synchronized, throws, transient, volatile</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>类中定义私有属性、方法建议以下划线开始 <code>_nameLikeThis</code></li>
+</ul>
+</li>
+<li><h6>缩进：</h6>
+<p>  约定缩进强制标准为一个 tab ,建议宽度为4个空格（便于阅读），8个空格的宽度可兼容所有编辑器</p>
+</li>
+<li><h6>空格：</h6>
+<p>  代码中应当存在合理的空格，包括不限于：</p>
+<ul>
+<li>关键字(如 <code>var</code> )后面</li>
+<li>运算符(如 <code>=</code> )之间</li>
+<li><code>for</code> 循环中的分号 <code>;</code> 后面  <pre><code class="language-js"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = <span class="number">10</span>; i &lt; len; i++) {
+  <span class="comment">//some code</span>
+}</code></pre>
+</li>
+</ul>
+</li>
+<li><h6>分号：</h6>
+<p>  所有语句结束后，必须使用 <code>;</code> 号结束<br>  以下情况也应当使用 <code>;</code> ：</p>
+<ul>
+<li><p>以 <code>var</code> 来声明的函数末尾</p>
+<pre><code class="language-js"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+  <span class="comment">//some code</span>
+};</code></pre>
+</li>
+<li><p>花括号对象 <code>{}</code> 的末尾</p>
+<pre><code class="language-js"><span class="keyword">var</span> person = {
+  name: <span class="string">'jack'</span>,
+  age: <span class="number">18</span>
+};</code></pre>
+</li>
+<li><p>立即执行函数的前面和末尾</p>
+<pre><code class="language-js"><span class="comment">// 前面的;必须加上，能有效避免意外情况</span>
+;(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+  <span class="comment">//some code</span>
+})();</code></pre>
+</li>
+</ul>
+</li>
+<li><h6>初始化：</h6>
+<ul>
+<li><p>初始化对象、数组时，应尽量使用其字面量</p>
+<pre><code class="language-js"><span class="keyword">var</span> obj = <span class="keyword">new</span> Object();<span class="comment">//避免</span>
+<span class="keyword">var</span> obj = {};
+<span class="keyword">var</span> arr = <span class="keyword">new</span> Array();<span class="comment">//避免</span>
+<span class="keyword">var</span> arr = [];</code></pre>
+</li>
+<li><p>定义常量的时候必须初始化，声明时，可以用 <code>@const</code> 注释说明，但不要使用 <code>const</code> 关键字来声明  </p>
+<pre><code class="language-js"><span class="comment">// never do this</span>
+<span class="keyword">const</span> SECONDS_IN_A_MINUTE = <span class="number">60</span>;
+
+<span class="comment">// good like this</span>
+<span class="keyword">var</span> SECONDS_IN_A_MINUTE = <span class="number">60</span>;</code></pre>
+</li>
+</ul>
+</li>
+<li><h6>内置对象：</h6>
+<ul>
+<li>禁止修改内置对象的原型  <pre><code class="language-js"><span class="comment">//never do this</span>
+String.prototype.charAt = <span class="function"><span class="keyword">function</span> <span class="params">(idx)</span> {</span>
+  <span class="keyword">return</span> <span class="keyword">this</span>[idx];
+}</code></pre>
+</li>
+<li>尽量避免扩展内置对象的原型<pre><code class="language-js"><span class="comment">// you can do like this</span>
+<span class="keyword">if</span> (String.prototype.trim === undefind) {
+  String.prototype.trim = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+      <span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/^\s+|\s+$/g</span>, <span class="string">""</span>);
+  }
+}</code></pre>
+</li>
+</ul>
+</li>
+<li><h6>括号：</h6>
+<ul>
+<li><p>不该使用括号： 
+  对于一元操作符以及关键字后面，永远不用使用括号  </p>
+<pre><code class="language-js"><span class="comment">// don't like this</span>
+<span class="keyword">delete</span>(person.age);
+
+<span class="comment">// good like this</span>
+<span class="keyword">delete</span> person.age;</code></pre>
+</li>
+<li>应该使用括号：
+  判断条件、多处判断运算<pre><code class="language-js"><span class="keyword">var</span> a = b || (c &gt; <span class="number">0</span> ? c : <span class="number">0</span>);</code></pre>
+</li>
+</ul>
+</li>
+<li><h6>引号：</h6>
+<p>  能使用 <code>&#39;</code> 的时候都是用 <code>&#39;</code> ，少用 <code>&quot;</code><br>  与服务器通信时，若使用 JSON 格式，则必须严格使用标准的 JSON 格式，key、value都应当使用 <code>&quot;</code></p>
+</li>
+<li><h6>大括号：</h6>
+<p>  代码块，即使代码只有一行，也都应该使用大括号括起来，左大括号不用换行，如：</p>
+<pre><code class="language-js">  <span class="comment">//条件判断</span>
+  <span class="keyword">if</span> (i === <span class="number">0</span>) {
+      alert(<span class="string">'i == 0'</span>);
+  } <span class="keyword">else</span> {
+      alert(<span class="string">'i != 0'</span>);
+  }</code></pre>
+</li>
+<li><h6>比较运算符：</h6>
+<p>  使用 <code>!== ===</code> 而非 <code>!= ==</code> 来进行判断 </p>
+</li>
+<li><h6>代码行：</h6>
+<p>  一行代码应该控制在80个字符以内</p>
+</li>
+<li><h6>空行：</h6>
+<p>  使用空行来划分逻辑上相关的代码  </p>
+<pre><code class="language-js">  ;(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+      <span class="string">'use strict'</span>;
+      <span class="keyword">var</span> a, 
+          b,
+          c;
+
+      <span class="comment">//some code about other things</span>
+      ...
+  })();</code></pre>
+</li>
+<li><h6>参数：</h6>
+<p>  函数的参数不应过多，当需要传的参数超过<strong>4</strong>个的时候，使用Object对象来传参</p>
+</li>
+<li><h6>引用属性：</h6>
+<p>  优先使用 <code>.</code> 来引用方法、属性</p>
+<pre><code class="language-js">  <span class="comment">//good</span>
+  obj.name
+  <span class="comment">//bad</span>
+  obj[<span class="string">'name'</span>]</code></pre>
+</li>
+<li><h6>注释：</h6>
+<ul>
+<li>关键代码应该加上必须的注释，逻辑比较复杂或特殊的也应当加上注释</li>
+<li><p>所有的文件，类，方法和属性都应该以 <a href="http://code.google.com/p/jsdoc-toolkit/">JSDoc</a> 风格来进行注释。大多数情况下，至少必须保证 @desc、@param、@return 的注释。</p>
+<pre><code class="language-js"><span class="comment">// 一个简单的例子</span>
+<span class="comment">/**
+* example 1.0
+* about its dependencies.
+* @author User &lt;User@example.com&gt;
+* @desc this file is an example
+*/</span>
+
+<span class="comment">/**
+* Class making something fun and easy.
+* @param {string} arg1 An argument that makes this more interesting.
+* @param {Array.&lt;number&gt;} arg2 List of numbers to be processed.
+* @constructor
+*/</span>
+<span class="keyword">var</span> Example = <span class="function"><span class="keyword">function</span> <span class="params">(arg1, arg2)</span> {</span>
+  <span class="comment">//...</span>
+};
+
+<span class="comment">/**
+* Maximum number of things per pane.
+* @type {number}
+*/</span> 
+Example.prototype.max = <span class="number">20</span>;
+
+<span class="comment">/**
+* An example about method 
+* @param {string} foo This is a description of param
+* @return {number} This is a description of return
+*/</span>
+Example.prototype.getLength = <span class="function"><span class="keyword">function</span> <span class="params">(foo)</span> {</span>
+  <span class="keyword">var</span> len;
+  <span class="keyword">if</span> (<span class="keyword">typeof</span> foo === <span class="string">'string'</span>) {
+      len = foo.length;
+  } <span class="keyword">else</span> {
+      len = <span class="number">0</span>;
+  }
+  <span class="keyword">return</span> len;
+};</code></pre>
+</li>
+<li>行内注释使用 <code>//</code> </li>
+</ul>
+</li>
+<li><h6>其他一些注意点：</h6>
+<ul>
+<li>尽量使用单引号，且string类型换行应避免用 <code>\</code> 的方式<pre><code class="language-js"><span class="comment">// please don't do this</span>
+<span class="keyword">var</span> myString = <span class="string">'A rather long string of English text, an error message \
+          actually that just keeps going and going -- an error \
+          message to make the Energizer bunny blush (right through \
+          those Schwarzenegger shades)! Where was I? Oh yes, \
+          you\'ve got an error and all the extraneous whitespace is \
+          just gravy.  Have a nice day.'</span>;</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong> 本规范只做 javascript 编码格式方面的约定，且只对比较常见的格式进行统一，不涉及编码内容方面的规定。主要参考 <a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">Google JavaScript Style Guide</a> 以及实际编码中的情况进行编写，如有 <em>补充</em>、<em>修改</em> 或其他意见、建议，请联系： <a href="mailto:wuxiaobin@xunlei.com">wuxiaobin@xunlei.com</a> </strong></p>
+
+
+  <!-- footer -->
+  <hr>
+   <p style="text-align: center;color: #818181;font-size: 12px;">© 迅雷web工程师协会</p>
+  <p style="text-align: center;color: #818181;font-size: 12px;">© 迅雷无线事业部 - 服务器团队 - 前端小组</p>
+</body>
